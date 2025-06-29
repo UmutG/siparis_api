@@ -23,6 +23,11 @@ namespace SiparisAPI.Controllers
         [HttpGet(Name = "GetOrder")]
         public IEnumerable<Order> Get(int id)
         {
+            if (id <= 0)
+            {
+                _logger.LogError("Invalid order ID: {OrderId}", id);
+                return Enumerable.Empty<Order>();
+            }
             return Orders.Where(o => o.OrderId == id);
         }
 
